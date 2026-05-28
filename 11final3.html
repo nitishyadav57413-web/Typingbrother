@@ -1,0 +1,1996 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Typing Bro</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#020617,#0f172a,#1e3a8a);
+color:white;
+overflow-x:hidden;
+transition:0.4s;
+}
+
+/* =========================
+THEMES
+========================= */
+
+.theme-neon{
+background:linear-gradient(135deg,#000,#001d3d,#00ffff);
+}
+
+.theme-purple{
+background:linear-gradient(135deg,#240046,#5a189a,#9d4edd);
+}
+
+.theme-light{
+background:linear-gradient(135deg,#ffffff,#e2e8f0,#cbd5e1);
+color:#111;
+}
+
+/* =========================
+LOADER
+========================= */
+
+.loader{
+position:fixed;
+inset:0;
+background:#000814;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:999999;
+animation:hideLoader 5s forwards;
+}
+
+.typing-loader{
+font-size:65px;
+font-weight:800;
+color:#00e5ff;
+border-right:5px solid white;
+overflow:hidden;
+white-space:nowrap;
+width:0;
+animation:
+typing 3s steps(25,end) forwards,
+blink 0.8s infinite;
+}
+
+.loader p{
+margin-top:20px;
+font-size:18px;
+}
+
+@keyframes typing{
+from{width:0}
+to{width:520px}
+}
+
+@keyframes blink{
+50%{border-color:transparent}
+}
+
+@keyframes hideLoader{
+0%,90%{
+opacity:1;
+visibility:visible;
+}
+100%{
+opacity:0;
+visibility:hidden;
+}
+}
+
+/* =========================
+BACKGROUND
+========================= */
+
+.bg{
+position:fixed;
+inset:0;
+overflow:hidden;
+z-index:-1;
+}
+
+.bg span{
+position:absolute;
+width:15px;
+height:15px;
+background:rgba(255,255,255,0.08);
+border-radius:50%;
+bottom:-100px;
+animation:move 18s linear infinite;
+}
+
+.bg span:nth-child(1){left:10%;}
+.bg span:nth-child(2){left:25%;}
+.bg span:nth-child(3){left:45%;}
+.bg span:nth-child(4){left:65%;}
+.bg span:nth-child(5){left:85%;}
+
+@keyframes move{
+0%{
+transform:translateY(0) rotate(0);
+opacity:1;
+}
+100%{
+transform:translateY(-1200px) rotate(720deg);
+opacity:0;
+}
+}
+
+/* =========================
+HEADER
+========================= */
+
+.header{
+position:sticky;
+top:0;
+z-index:9999;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 25px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(255,255,255,0.08);
+transition:0.4s;
+}
+
+.hide-header .header{
+transform:translateY(-120%);
+opacity:0;
+}
+
+.logo{
+font-size:34px;
+font-weight:800;
+background:linear-gradient(to right,#00e5ff,#4d7dff,#ff00ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.nav{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.nav button,
+.theme-select{
+padding:12px 18px;
+border:none;
+border-radius:14px;
+background:rgba(255,255,255,0.08);
+color:white;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+}
+
+.nav button:hover,
+.theme-select:hover{
+background:#4169ff;
+transform:translateY(-4px);
+}
+
+/* =========================
+SECTION
+========================= */
+
+.section{
+display:none;
+padding:25px;
+animation:fade 0.4s ease;
+}
+
+.section.active{
+display:block;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* =========================
+TITLE
+========================= */
+
+.title{
+font-size:70px;
+font-weight:800;
+text-align:center;
+margin:40px 0;
+background:linear-gradient(to right,#00e5ff,#4d7dff,#ff00ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* =========================
+PROFILE
+========================= */
+
+.profile{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:15px;
+margin-bottom:40px;
+flex-wrap:wrap;
+}
+
+.profile-circle{
+width:90px;
+height:90px;
+border-radius:50%;
+background:linear-gradient(135deg,#00e5ff,#4169ff);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:34px;
+}
+
+.profile button{
+padding:12px 20px;
+border:none;
+border-radius:14px;
+background:#4169ff;
+color:white;
+cursor:pointer;
+font-weight:700;
+}
+
+/* =========================
+CARDS
+========================= */
+
+.course-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:22px;
+}
+
+.card{
+padding:28px;
+border-radius:30px;
+cursor:pointer;
+transition:0.4s;
+position:relative;
+overflow:hidden;
+min-height:240px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.03);
+}
+
+.card::before{
+content:'';
+position:absolute;
+width:220px;
+height:220px;
+border-radius:50%;
+background:rgba(255,255,255,0.08);
+top:-80px;
+right:-80px;
+}
+
+.card h2{
+font-size:34px;
+}
+
+.card p{
+margin-top:10px;
+}
+
+.beginner{
+background:linear-gradient(135deg,#0066ff,#00c6ff);
+}
+
+.intermediate{
+background:linear-gradient(135deg,#ff512f,#dd2476);
+}
+
+.advance{
+background:linear-gradient(135deg,#111,#555);
+}
+
+.test{
+background:linear-gradient(135deg,#7f5cff,#9656ff);
+}
+
+.game{
+background:linear-gradient(135deg,#00b894,#00cec9);
+}
+
+.progress{
+width:90px;
+height:90px;
+border-radius:50%;
+border:8px solid rgba(255,255,255,0.2);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:20px;
+font-weight:700;
+}
+
+/* =========================
+TOP BAR
+========================= */
+
+.top-bar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:20px;
+}
+
+.top-bar button{
+padding:12px 18px;
+border:none;
+border-radius:14px;
+cursor:pointer;
+font-weight:700;
+color:white;
+}
+
+.back-btn{background:#111;}
+.death-btn{background:#ff3d3d;}
+.sound-btn{background:#00b894;}
+.full-btn{background:#4169ff;}
+
+/* =========================
+EXERCISE
+========================= */
+
+.exercise-list{
+display:grid;
+gap:14px;
+}
+
+.exercise-item{
+background:rgba(255,255,255,0.05);
+padding:12px;
+border-radius:18px;
+}
+
+.exercise-number{
+font-size:20px;
+font-weight:700;
+margin-bottom:8px;
+color:#00e5ff;
+}
+
+.typing-box{
+background:#111827;
+padding:10px;
+border-radius:12px;
+line-height:1.6;
+font-size:15px;
+max-height:90px;
+overflow:auto;
+word-break:break-word;
+}
+
+.exercise-input{
+width:100%;
+margin-top:8px;
+height:45px;
+padding:10px;
+border:none;
+border-radius:12px;
+background:#0f172a;
+color:white;
+outline:none;
+resize:none;
+font-size:15px;
+}
+
+.correct{
+color:#00ff66;
+}
+
+.incorrect{
+color:#ff4d4d;
+}
+
+.active-char{
+background:#4169ff;
+border-radius:3px;
+animation:blinkCursor 1s infinite;
+}
+
+@keyframes blinkCursor{
+50%{opacity:0.3;}
+}
+
+/* =========================
+LESSON BUTTONS
+========================= */
+
+.lesson-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:16px;
+}
+
+.lesson-btn{
+padding:20px;
+border:none;
+border-radius:18px;
+background:linear-gradient(135deg,#7f5cff,#9656ff);
+color:white;
+font-weight:700;
+cursor:pointer;
+transition:0.3s;
+}
+
+.lesson-btn:hover{
+transform:translateY(-6px);
+}
+
+/* =========================
+TEST AREA
+========================= */
+
+.test-area{
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:20px;
+}
+
+.timer{
+font-size:22px;
+margin-bottom:15px;
+color:#00e5ff;
+font-weight:700;
+}
+
+/* =========================
+POPUP
+========================= */
+
+.popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.7);
+display:none;
+justify-content:center;
+align-items:center;
+padding:20px;
+z-index:99999;
+}
+
+.popup-box{
+background:#111827;
+padding:30px;
+border-radius:25px;
+width:100%;
+max-width:650px;
+max-height:90vh;
+overflow:auto;
+}
+
+.popup-box button{
+margin-top:20px;
+padding:12px 18px;
+border:none;
+border-radius:14px;
+background:#4169ff;
+color:white;
+cursor:pointer;
+}
+
+/* =========================
+RESULT POPUP
+========================= */
+
+.result-popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.7);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999999;
+padding:20px;
+}
+
+.result-box{
+background:#0f172a;
+padding:30px;
+border-radius:25px;
+width:100%;
+max-width:420px;
+text-align:center;
+}
+
+.result-box h2{
+margin-bottom:20px;
+font-size:32px;
+}
+
+.result-box p{
+margin:10px 0;
+font-size:18px;
+}
+
+.result-box button{
+margin-top:20px;
+padding:12px 18px;
+border:none;
+border-radius:14px;
+background:#4169ff;
+color:white;
+cursor:pointer;
+}
+
+/* =========================
+FOOTER
+========================= */
+
+.footer{
+margin-top:50px;
+padding:40px 20px 90px;
+text-align:center;
+background:#050816;
+}
+
+.socials{
+display:flex;
+justify-content:center;
+gap:14px;
+flex-wrap:wrap;
+margin-bottom:20px;
+}
+
+.socials a{
+width:55px;
+height:55px;
+border-radius:50%;
+background:rgba(255,255,255,0.08);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
+color:white;
+text-decoration:none;
+transition:0.3s;
+}
+
+.socials a:hover{
+background:white;
+color:#111;
+transform:translateY(-5px);
+}
+
+.footer-btn{
+padding:12px 18px;
+border:none;
+border-radius:14px;
+background:white;
+cursor:pointer;
+font-weight:700;
+margin:6px;
+}
+
+.designed{
+margin-top:15px;
+font-size:18px;
+font-weight:700;
+animation:float 2s infinite;
+}
+
+/* =========================
+BOTTOM NAV
+========================= */
+
+.bottom-nav{
+position:fixed;
+bottom:15px;
+left:50%;
+transform:translateX(-50%);
+width:95%;
+max-width:650px;
+padding:12px;
+border-radius:25px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
+display:flex;
+justify-content:space-around;
+z-index:99999;
+}
+
+.bottom-nav button{
+background:none;
+border:none;
+color:white;
+cursor:pointer;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:4px;
+}
+
+.bottom-nav i{
+font-size:22px;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:700px){
+
+.title{
+font-size:42px;
+}
+
+.logo{
+font-size:28px;
+}
+
+.typing-loader{
+font-size:34px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div class="loader">
+
+<div class="typing-loader">
+TYPING BRO 
+</div>
+
+<p>
+Loading Premium Experience...
+</p>
+
+</div>
+
+<!-- BACKGROUND -->
+
+<div class="bg">
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="logo">
+ Typing Bro
+</div>
+
+<div class="nav">
+
+<button onclick="showSection('dashboard')">
+<i class="fa-solid fa-house"></i> Home
+</button>
+
+<button onclick="openPopup('aboutPopup')">
+<i class="fa-solid fa-circle-info"></i> About
+</button>
+
+<button onclick="openPopup('contactPopup')">
+<i class="fa-solid fa-phone"></i> Contact
+</button>
+
+<button onclick="openPopup('helpPopup')">
+<i class="fa-solid fa-circle-question"></i> Help
+</button>
+
+<select class="theme-select"
+onchange="changeTheme(this.value)">
+
+<option value="">Default</option>
+<option value="theme-neon">Neon</option>
+<option value="theme-purple">Purple</option>
+<option value="theme-light">Light</option>
+
+</select>
+
+</div>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div id="dashboard" class="section active">
+
+<h1 class="title">
+My Typing Cources 
+</h1>
+
+<div class="profile">
+
+<div class="profile-circle">
+<i class="fa-solid fa-user"></i>
+</div>
+
+<div>
+
+<h2 id="profileName">
+Guest User
+</h2>
+
+<button onclick="saveProfile()">
+Login / Signup
+</button>
+
+</div>
+
+</div>
+
+<div class="course-grid">
+
+<div class="card beginner"
+onclick="openCourse(beginnerExercises,'Beginner')">
+
+<div>
+<h2>Beginner</h2>
+<p>Unlimited Exercises</p>
+</div>
+
+<div class="progress">80+</div>
+
+</div>
+
+<div class="card intermediate"
+onclick="openCourse(intermediateExercises,'Intermediate')">
+
+<div>
+<h2>Intermediate</h2>
+<p>Unlimited Exercises</p>
+</div>
+
+<div class="progress">90+</div>
+
+</div>
+
+<div class="card advance"
+onclick="openCourse(advanceExercises,'Advance')">
+
+<div>
+<h2>Advance</h2>
+<p>Unlimited Exercises</p>
+</div>
+
+<div class="progress">100+</div>
+
+</div>
+
+<div class="card test"
+onclick="showSection('typingTestPage')">
+
+<div>
+<h2>Typing Test</h2>
+<p>10 Lessons</p>
+</div>
+
+<div class="progress">TEST</div>
+
+</div>
+
+<div class="card game">
+
+<div>
+<h2>Typing Game</h2>
+<p>Play & Learn</p>
+</div>
+
+<div class="progress">PLAY</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- COURSE PAGE -->
+
+<div id="coursePage" class="section">
+
+<div class="top-bar">
+
+<button class="back-btn"
+onclick="showSection('dashboard')">
+← Dashboard
+</button>
+
+<button class="death-btn"
+onclick="toggleDeathMode()"
+id="deathBtn">
+Death OFF
+</button>
+
+<button class="sound-btn"
+onclick="toggleSound()"
+id="soundBtn">
+Sound ON
+</button>
+
+<button class="full-btn"
+onclick="toggleFullScreen()">
+Fullscreen
+</button>
+
+</div>
+
+<h2 id="courseTitle"></h2>
+
+<br>
+
+<div class="exercise-list"
+id="exerciseList">
+</div>
+
+</div>
+
+<!-- TYPING TEST -->
+
+<div id="typingTestPage"
+class="section">
+
+<h1 class="title">
+Typing Test
+</h1>
+
+<div class="lesson-grid">
+
+<button class="lesson-btn"
+onclick="openTest(1)">
+Lesson 1
+</button>
+
+<button class="lesson-btn"
+onclick="openTest(2)">
+Lesson 2
+</button>
+
+<button class="lesson-btn"
+onclick="openTest(3)">
+Lesson 3
+</button>
+
+<button class="lesson-btn"
+onclick="openTest(4)">
+Lesson 4
+</button>
+
+<button class="lesson-btn"
+onclick="openTest(5)">
+Lesson 5
+</button>
+
+<button class="lesson-btn"
+onclick="openTest(6)">
+Lesson 6
+</button>
+
+<button class="lesson-btn"
+onclick="openTest(7)">
+Lesson 7
+</button>
+
+<button class="lesson-btn"
+onclick="openTest(8)">
+Lesson 8
+</button>
+
+<button class="lesson-btn"
+onclick="openTest(9)">
+Lesson 9
+</button>
+
+<button class="lesson-btn"
+onclick="openTest(10)">
+Lesson 10
+</button>
+
+</div>
+
+</div>
+
+<!-- TEST PAGE -->
+
+<div id="testPage" class="section">
+
+<div class="top-bar">
+
+<button class="back-btn"
+onclick="showSection('typingTestPage')">
+← Lessons
+</button>
+
+</div>
+
+<div class="test-area">
+
+<div class="timer"
+id="timer">
+Time: 60s
+</div>
+
+<div class="typing-box"
+id="testText">
+</div>
+
+<textarea
+id="testInput"
+class="exercise-input"
+style="height:120px;margin-top:15px;"
+placeholder="Start typing here..."></textarea>
+
+</div>
+
+</div>
+
+<!-- ABOUT -->
+
+<div class="popup"
+id="aboutPopup">
+
+<div class="popup-box">
+
+<h2>About</h2>
+
+<p>
+My Typing Course ek premium typing learning platform hai jahan beginners se advance users tak sab typing speed aur accuracy improve kar sakte hain.
+</p>
+
+<button onclick="closePopup('aboutPopup')">
+Close
+</button>
+
+</div>
+
+</div>
+
+<!-- HELP -->
+
+<div class="popup"
+id="helpPopup">
+
+<div class="popup-box">
+
+<h2>Help</h2>
+
+<p>
+    ​1. 
+​​Pro Tip: Keyboard banane waalon ne 'F' aur 'J' keys par ek chhoti si ubhri hui line (raised line) banayi hai. Iska maqsad ye hai ki bina keyboard ko dekhe, aapki index fingers aasani se wapas home row par apni jagah dhoondh sakein.
+​3. Finger Responsibilities
+​Keyboard ko is tarah baanta gaya hai ki har ek ungli ka apna ek fix area hota hai:
+​Diagonal Movement: Har ungli apne se diagonally upar aur neeche waali keys ko control karti hai. (Jaise right hand ki middle finger 'K' se upar 'I' aur neeche ',' tak pahunchti hai).
+​Pinky Fingers: Inka kaam thoda zyada hota hai, kyunki ye capital letters (Shift) aur paragraph badalne (Enter) jaise kaam bhi karti hain.
+​Index Fingers: Ye do rows ki zimmedari sambhalti hain:
+​Right Index: 'U', 'M', 'Y', 'H', aur 'N'.
+​Left Index: 'R', 'V', 'T', 'G', aur 'B'.
+​4. Typing Tips for Success
+​Position your Hands: Apni ungliyon ko keyboard par thoda sa modkar (curve karke) rakhein taaki wo chalne ke liye tayar rahein.
+​Don't Look Down: Keyboard ko dekhne ke bajaye use mahsoos karne ki koshish 
+​Note: Shuruat mein ungliyon ko stretch karna ajeeb lag sakta hai aur iske liye kaafi practice ki zaroorat hoti hai. Dheere-dheere aapki muscle memory develop ho jayegi.
+   </p>
+
+<button onclick="closePopup('helpPopup')">
+Close
+</button>
+
+</div>
+
+</div>
+
+<!-- CONTACT -->
+
+<div class="popup"
+id="contactPopup">
+
+<div class="popup-box">
+
+<h2>Contact Us</h2>
+
+<div class="socials">
+
+<a href="https://www.facebook.com/nitishzz" target="_blank">
+<i class="fab fa-facebook-f"></i>
+</a>
+
+<a href="https://www.instagram.com/nitishzz?igsh=YzV0MTl6NmRvbmJ4" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://t.me/Znitish" target="_blank">
+<i class="fab fa-telegram"></i>
+</a>
+
+</div>
+
+<button onclick="closePopup('contactPopup')">
+Close
+</button>
+
+</div>
+
+</div>
+
+<!-- RESULT -->
+
+<div class="result-popup"
+id="resultPopup">
+
+<div class="result-box">
+
+<h2>Test Result</h2>
+
+<p id="resultTime"></p>
+<p id="resultWpm"></p>
+<p id="resultAccuracy"></p>
+<p id="resultCorrect"></p>
+<p id="resultWrong"></p>
+
+<button onclick="closeResult()">
+Close
+</button>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+<div class="socials">
+
+<a href="https://www.google.com" target="_blank">
+<i class="fab fa-google"></i>
+</a>
+
+<a href="https://www.youtube.com" target="_blank">
+<i class="fab fa-youtube"></i>
+</a>
+
+<a href="https://www.facebook.com/nitishzz" target="_blank">
+<i class="fab fa-facebook-f"></i>
+</a>
+
+<a href="https://www.instagram.com/nitishzz?igsh=YzV0MTl6NmRvbmJ4" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://t.me/Znitish" target="_blank">
+<i class="fab fa-telegram"></i>
+</a>
+
+</div>
+
+<button class="footer-btn"
+onclick="showSection('dashboard')">
+Dashboard
+</button>
+
+<a href="mailto:nitishyadav57413@gmail.com">
+
+<button class="footer-btn">
+Any Queries
+</button>
+
+</a>
+
+<p>
+Copyright © 2026 Typing bro
+</p>
+
+<div class="designed">
+Designed By NK ✨
+</div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<div class="bottom-nav">
+
+<button onclick="showSection('dashboard')">
+<i class="fa-solid fa-house"></i>
+Home
+</button>
+
+<button onclick="showSection('typingTestPage')">
+<i class="fa-solid fa-keyboard"></i>
+Test
+</button>
+
+<button onclick="openPopup('contactPopup')">
+<i class="fa-solid fa-phone"></i>
+Contact
+</button>
+
+<button onclick="openPopup('helpPopup')">
+<i class="fa-solid fa-circle-question"></i>
+Help
+</button>
+
+</div>
+
+<script>
+
+/* =========================
+UNLIMITED EXERCISES
+========================= */
+
+const beginnerData = `
+asdf fdsa asdf fdsa asdf fdsa asdf fdsa asdf fdsa  
+lkj; ;lkj jkl; ;lkj lkj; ;lkj ;lkj jkl; ;lkj jkl;
+a s d f a s d f a s d f a s d f a s d f f d s a 
+j k l ; j k l ; j k l ; j k l ; ; l k j j k l ;
+asdf jkl; asdf jkl; asdf jkl; asdf jkl; asdf jkl; asdf jkl
+jkl; ;lkj jkl; ;lkj jkl; ;lkj jkl; ;lkj jkl; ;lkj jkl; ;lkj
+asdf jkl; asdf jkl; asdf jkl; asdf jkl; asdf jkl; asdf jkl;
+;lkj fdsa ;lkj fdsa ;lkj fdsa ;lkj fdsa ;lkj fdsa ;lkj fdsa
+a s d f j k l ; a s d f j k l ; a s d f j k l ; a s d f j k
+; l k j f d s a ; l k j f d s a ; l k j f d s a ; l k j f d
+f j d k s l a ; f j d k s l a ; f j d k s l a ; f j d k s l
+all; fall falls fad; dad; sad; lad; lass fads dads ask alas
+alas ask dads fads lass lad; sad; dad; fad; falls fall all;
+dad asks a lad; dad asks a lass; all dads ask alas; ask all
+all dads ask; all lads ask; a lass asks; a jaffa asks a lad
+asdf jkl; asdf jkl; asdf jkl; asdf jkl; asdf jkl; asdf jkl;
+fjdk sla; fjdk sla; fjdk sla; fjdk sla; fjdk sla; fjdk sla;
+;lkj fdsa ;lkj fdsa ;lkj fdsa ;lkj fdsa ;lkj fdsa ;lkj fdsa
+asdf jkl; asdf jkl; asdf jkl; asdf jkl; asdf jkl; asdf jkl;
+all; falls fad; dad; fall sad; fads dads ask; fad all; dad;
+alas ask dads fads lass lad; sad; dad; fad; falls fall all;
+a jaffa asks a lad; a lad asks; all lads ask; all dads ask;
+alas a dad falls; all lads; ask dad; a jaffa fad; a sad lad
+all dads ask alas; a jaffa fad; dad asks a lass; ask a lad;
+all lads ask; a lass asks; a jaffa asks a lass; a jaffa fad
+ded; ede; ded; ede; ded; ede; ded; ede; ded; ede; ded; ede;
+kik; iki; kik; iki; kik; iki; kik; iki; kik; iki; kik; iki;
+feed seed deed lead deal seal leak seek feel keel leek less
+kill fill dill sill jill kiss kill fill dill sill jill kiss
+dad kisses jill; feed a lad; feed a lass; feed all; see all
+a sad seal did fall; dad filled a field; a sill leaks alas;
+a lad did lie; a lass is dead; feed a seal; feed a deaf lad;
+feed a seal leeks; seek a lead; feed jill a leak; feel sad;
+ask a deed; a sill leaks; jill falls ill; jaffa kisses jill
+fill a seed field; ask less if jill is sad; all lasses fall
+fgf; gfg; fgf; gfg; fgf; gfg; fgf; gfg; fgf; gfg; fgf; gfg;
+jhj; hjh; jhj; hjh; jhj; hjh; jhj; hjh; jhj; hjh; jhj; hjh;
+gas; has; gale hale gash hash gill hill gall hall geld held
+high sigh hike like jig; dig; fig; gig; half heel lash dash
+he liked a jig; she liked a jig; all liked a jig; see a jig
+a lass sighed; see a high hill; has he held a seal; i asked
+he held a jaffa as he fell; add a high gas; dig a fig field
+i like a fig; half a heel has held; jill has a gash; i hike
+jill digs a field; jill likes a hike; a gas leak kills all;
+i sigh like jill; jed has a high hall; see jaffa as he jigs
+fill a seed field; ask less if jill is sad; all lasses fall
+ask a deed; a sill leaks; jill falls ill; jaffa kisses jill
+feed a seal leeks; seek a lead; feed jill a leak; feel sad;
+a lad did lie; a lass is dead; feed a seal; feed a deaf lad
+a sad seal did fall; dad filled a field; a sill leaks alas;
+dad kisses jill; feed a lad; feed a lass; feed all; see all
+i sigh like jill; jed has a high hall; see jaffa as he jigs
+jill digs a field; jill likes a hike; a gas leak kills all;
+I like a fig; half a heel has held; jill has a gash; i hike
+he held a jaffa as he fell; add a high gas; dig a fig field
+a lass sighed; see a high hill; has he held a seal; i asked
+he liked a jig; she liked a jig; all liked a jig; see a jig
+lol; olo; lol; olo; lol; olo; lol; olo; lol; olo; lol; olo;
+jnj; njn; jnj; njn; jnj; njn; jnj; njn; jnj; njn; jnj; njn;
+dog; hog; fog; log; nog; jog; goon soon loon noon lose hose
+nose dose none gone lone line fine dine sign nine lane sane
+a lad had a fine dog; he held his lead; he jogged in a lane
+fog had soon hidden all signs of a field; he fell on a log;
+she had a fine salad and half of a fish; she soon had none;
+he had a fine nose; she had gone insane; she had a fine fig
+sad lad and his dog had gone jogging in a field and he fell
+jed dosed on a log; he soon had no dog; he had gone inside;
+Ask; See; Don; Fog; Gas; Had; Jag; Keg; Leg; Nag; All; Sag;
+tag; tog; tin; ton; tan; ten; tea; tie; toll tall till tell
+That Kill Fill Sell Till Hill Gill Doll Noel Tent Hide Tide
+Lilt Hilt Silt Tilt Kilt Gilt Talk Gate Hate Fate Late Date
+I said I hated the doll and that I felt it had a tin leg;
+She talked of Noel and said she asked if he hated jogging
+Ask to see Don and see if he sells gates; tents and dolls
+I said I felt fine and that I jogged in a field at night;
+He let his dog loose in the field and he fished in a lake
+The fog had filled the field and I fell on a sagging log;
+jed dosed on a log; he soon had no dog; he had gone inside;
+the lad and his dog had gone jogging in a field and he fell
+he had a fine nose; she had gone insane; she had a fine fig
+she had a fine salad and half of a fish; she soon had none;
+fog had soon hidden all signs of a field; he fell on a log;
+a lad had a fine dog; he held his lead; he jogged in a lane
+The fog had filled the field and I fell on a sagging log;
+He let his dog loose in the field and he fished in a lake
+I said I felt fine and that I jogged in a field at night;
+Ask to see Don and see if he sells gates; tents and dolls
+She talked of Noel and said she asked if he hated jogging
+I said I hated the doll and that I felt it had a tin leg;
+A sad lad asks a lass; all dads fall alas; a jaffa falls
+Dad asks a lad; alas a lass falls; Dad falls sad; a lass
+Jill filled a field; Jill feeds a lass; Jill kisses Dad;
+A lad killed a lass; a seal leaked alas; feed Dad seeds;
+He likes a dig; she likes a dig; all liked a dig; a lass
+Dad gashed his leg; a lad held a fig; see a jaffa field;
+Half of a fish had hidden in the sea; she held his head;
+She had no sign of the noon fog; The land had soon gone;
+He talked of the fate of those dolls; I said I felt fine
+She felt the fog lift late as she jogged into the field;
+`;
+
+const intermediateData = `
+She felt the fog lift late as she jogged into the field;
+hyn; yhn; nhy; hyn; yhn; nhy; hyn; yhn; nhy; hyn; yhn; nhy;
+lo. ol. .lo lo. ol. .lo lo. ol. .lo lo. ol. .lo
+Yet. Yes. Yen. Nay. Hay. Gay. Say. Lay. Kay. Joy. Toy. Eye.
+yell they flay slay yank yoke yolk toys eyes says nays lays
+They all liked seeing the toys shining gaily on a shelf.
+The lads yelled as they yanked the leg of a little lass.
+I said that they yelled in joy at the toys on the shelf.
+His eyes said it all. He talked of this feeling of hate.
+The yolks of the little eggs lay shining in the toy tin.
+Slay the nasty hog. Lay it on the shelf in the tool shed
+She felt the fog lift late as she jogged into the field;
+He talked of the fate of those dolls; I said I felt fine
+She had no sign of the noon fog; The lane had soon gone;
+Half of a fish had hidden in the sea; she held his head;
+Dad gashed his leg; a lad held a fig; see a jaffa field;
+He likes a dig; she likes a dig; all liked a dig; a lass
+Slay the nasty hog. Lay it on the shelf in the tool shed
+The yolks of the little eggs lay shining in the toy tin.
+His eyes said it all. He talked of this feeling of hate.
+I said that they yelled in joy at the toys on the shelf.
+The lads yelled as they yanked the leg of a little lass.
+They all liked seeing the toys shining gaily on a shelf.
+ik, ,ki ik, ,ki ik, ,ki ik, ,ki ik, ,ki ik, ,ki,
+wsw sws wsw sws wsw sws wsw sws wsw sws wsw sws wsw sws wsw
+way, was, wag, wan, wad, wet, wed, won, wok, wow, win, wig,
+wall well will west wash wish wind wand when wean week weak
+Ask the lady who was at the Dog Show to talk to the lad.
+We talked, we walked, we went in to tea, then we waited.
+We will wait while the lady talks to the tall, weak lad.
+What was the lad doing, whistling at those wagging dogs.
+We won the shiny toy, yet we did not win the tin shield.
+Wash the wig, so that she will want to look at it again.
+frf frf rfr rfr frf frf rfr rfr frf frf rfr rfr frf frf rfr rfr
+bgb gbg bgb gbg bgb gbg bgb gbg bgb gbg bgb gbg bgb gbg bgb
+beat bear bead beak bean been beef bell bill bass bees boil
+reel reef read reek roll rash rest root roof ride raid reed
+There were lots of boys in the band and they enjoyed it.
+The bread and rolls in the store had been there all day.
+The bread baked in the kiln tasted better than the rest.
+We had been riding the bikes all week and we were tired.
+The bear reeked of beef stew so we beat a hasty retreat.
+Billy had been rolling on the floor; he was boiling hot.
+Wash the wig, so that she will want to look at it again.
+We won the shiny toy, yet we did not win the tin shield.
+What was the lad doing, whistling at those wagging dogs.
+We will wait while the lady talks to the tall, weak lad.
+We talked, we walked, we went in to tea, then we waited.
+Ask the lady who was at the Dog Show to talk to the lad.
+Billy had been rolling on the floor; he was boiling hot.
+The bear reeked of beef stew so we beat a hasty retreat.
+We had been riding the bikes all week and we were tired.
+The bread baked in the kiln tasted better than the rest.
+The bread and rolls in the store had been there all day.
+There were lots of boys in the band and they enjoyed it.
+jmj mjm jmj mjm jmj mjm jmj mjm jmj mjm jmj mjm jmj
+juj uju juj uju juj uju juj uju juj uju juj uju juj uju juj
+mast mash mars mats mail meal mile mole moon mend mind mint
+burn turn lure fuss dust rust must gust lust gush lush mush
+My older brother kindly mended my new motor bike for me.
+I must shut the toilet door and remember to use the key.
+We must make our dinner more interesting and nourishing.
+The wind gusted, and the mast blew around the main roof.
+My mum mended the sagging hems. It was most kind of her.
+The main meal of the day was roast beef and baked beans.
+;p; p;p ;p; p;p ;p; p;p ;p; p;p ;p; p;p ;p; p;p ;p; p;p;
+edc cdc edc cdc edc cdc edc cdc edc cdc edc cdc edc cdc edc
+pool push pump purl pram prim pram palm peel pure paid pile
+cart curt corn core cure care coal cash cell call clot clad
+The policeman pushed his cycle by the tall church clock.
+Appropriate care must be taken when photocopying papers.
+The prim and proper nanny pushed the pram down the path.
+Take care of the cash. Call David and pay him a portion.
+Pull the pump up carefully and the water will spurt out.
+The cart crashed past as it caught the edge of the path.
+The main meal of the day was boiled beef and mushy peas.
+My mum mended the sagging hems. It was most kind of her.
+The wind gusted, and the mast blew around the main roof.
+We must make our dinner more interesting and nourishing.
+I must shut the toilet door and remember to use the key.
+My older brother kindly mended my new motor bike for me.
+The cart crashed past as it caught the edge of the path.
+Pull the pump up carefully and the water will spurt out.
+Take care of the cash. Call David and pay him a portion.
+The prim and proper nanny pushed the pram down the path.
+Appropriate care must be taken when photocopying papers.
+The policeman pushed his cycle by the tall church clock.
+rfv vfv rfv vfv rfv vfv rfv vfv rfv vfv rfv vfv rfv vfv
+wsx xsw wsx xsw wsx xsw wsx xsw wsx xsw wsx xsw wsx xsw wsx
+vent vein vane vine view vole vale veil vile vice vest vamp
+oxen exit axis hoax taxi coax box, fox, cox, pox, fax, tax,
+A vexed taxi man viewed the jam with extreme impatience.
+The extra climb gave a better view over the next valley.
+The exit was hidden from the view of the old van driver.
+The fox jumped over the exit box and captured the voles.
+It was a police hoax and the vice teams were very vexed.
+Victoria views paying road taxes with very vivid hatred.
+qaz aqa qaz aqa qaz aqa qaz aqa qaz aqa qaz aqa qaz aqa qaz
+zaq aza zaq aza zaq aza zaq aza zaq aza zaq aza zaq aza zaq
+aqua quit quay quid quod quiz quip quaint quota equal quell
+zoom zeal zest haze maze gaze laze fuzz buzz zulu lazy hazy
+Jo at the zoo asked quite odd questions about the zebra.
+The lady gazed at the buzzing bee down by the boat quay.
+He quit the jobs because he was a lazy and quiet worker.
+In order to coax Xavier to eat he devised a quaint plan.
+In the lazy, hazy days of summer it is quite often warm.
+The buzzy bee zoomed around the lazy queen as she cried.
+Victoria views paying road taxes with very vivid hatred.
+It was a police hoax and the vice teams were very vexed.
+The fox jumped over the exit box and captured the voles.
+The exit was hidden from the view of the old van driver.
+The extra climb gave a better view over the next valley.
+A vexed taxi man viewed the jam with extreme impatience.
+The buzzy bee zoomed around the lazy queen as she cried.
+In the lazy, hazy days of summer it is quite often warm.
+In order to coax Xavier to eat he devised a quaint plan.
+He quit the jobs because he was a lazy and quiet worker.
+The lady gazed at the buzzing bee down by the boat quay.
+Jo at the zoo asked quite odd questions about the zebra.
+A An old man had a fall and banged his head hard.
+B Buy a ball for Beth and bring it back in a bag.
+`;
+
+const advanceData = `
+C Call the computer company to cancel collection.
+D Did I decorate the dining room during December.
+E Every evening after tea he went to see Georgie.
+F Fill a fat frog with food from the first floor.
+G Get a good grip on the gate, and drag it along.
+H Have a happy holiday at Hastings Hall in March.
+I I will fill it with a lining first to insulate.
+J Just ask Jane to judge the jitterbug and tango.
+K The kind king gave back a kettle to the tinker.
+L Linda lost her silver locket at Looe last year.
+M Some men made a magnificent machine from metal.
+N No new newspapers need to be sent to Ned today.
+O Clive opted to organise the food on the outing.
+P Please pack the pots into paper packs promptly.
+Q Queenie requested varied questions in the quiz.
+R Ronald ran a race to raise revenue for charity.
+S Show us some sea shells and shiny silver stars.
+T The toy teddy was fixed to the top of the tree.
+U The undergraduate undertook to shut up the box.
+V Very enviable views were seen from the village.
+W We got wet when we went walking near the woods.
+X The extra anxious taxi man was extremely vexed.
+Y They say they should pay for the toy by cheque.
+Z A bee buzzed lazily as it zoomed round the zoo.
+de3ed de3d d3d de3ed de3d d3d de3ed de3d d3d de3ed de3d
+ju7uj ju7 j7j ju7uj ju7 j7j ju7uj ju7 j7j ju7uj ju7
+fr4rf fr4f f4f fr4rf fr4f f4f fr4rf fr4f f4f fr4rf fr4f
+ki8lk ki8k k8k ki8lk ki8k k8k ki8lk ki8k k8k ki8lk ki8k
+aq1qa aq1a a1a aq1qa aq1a a1a aq1qa aq1a a1a aq1qa aq1a
+sw2ws sw2s s2s sw2ws sw2s s2s sw2ws sw2s s2s sw2ws sw2s
+jy6yj jy6j j6j jy6yj jy6j j6j jy6yj jy6j j6j jy6yj jy6j
+fr5rf fr5f f5f fr5rf fr5f f5f fr5rf fr5f f5f fr5rf fr5f
+lo9ol lo9l l9l lo9ol lo9l l9l lo9ol lo9l l9l lo9ol lo9l
+;p0p; ;p0; ;0; ;p0p; ;p0; ;0; ;p0p; ;p0; ;0; ;p0p; ;p0;
+1qaz 2wsx 3edc 4rfv 5tgb 6yhn 7ujm 8ik, 9ol. 0p;/ 1qaz.
+zaq1 xsw2 cde3 vfr4 bgt5 nhy6 mju7 ,ki8 .lo9 /;p0 zaq1.
+3 duds 33 dots 3 dons 33 dogs 3 duds 33 dots 3 dons 33 dogs
+7 jugs 77 jars 7 jams 77 jigs 7 jugs 77 jars 7 jams 77 jigs
+4 figs 44 feet 4 fees 44 fans 4 figs 44 feet 4 fees 44 fans
+8 kits 88 keys 8 kids 88 kegs 8 kits 88 keys 8 kids 88 kegs
+This job lot was: 11 woollen suits, 1 blouse and 11 collars
+2 saws 22 sons 2 suns 22 sets 2 saws 22 sons 2 suns 22 sets
+6 jays 66 jobs 6 jets 66 jabs 6 jays 66 jobs 6 jets 66 jabs
+5 fins 55 fibs 5 fags 55 firs 5 fins 55 fibs 5 fags 55 firs
+9 logs 99 lads 9 laws 9 logs 99 lads 9 laws 9 logs 99 lads 9 laws
+20 pages; 30 pills; 40 papers 20 pages; 30 pills; 40 papers
+The man caught 26 pike, 15 roach, 36 tiddlers and 2 plaice.
+Jane got 16 marks in geography and just 14 marks in French.
+There were 3 dogs, 33 cats, and 330 hamsters at the park.
+I saw 7 people on Monday, 77 on Tuesday, and 7 yesterday.
+Weigh out 4 oz of flour, 4 oz of sugar, and add the eggs.
+At 8 o'clock I went out to see the 88 horses at the show.
+I had 1 suit, 1 pair of trousers, 1 skirt and 11 jumpers.
+The 2 of us saw 2 plays at the theatre on the 22nd August.
+If you add 6 and 6 and 6 you will find the right answers.
+I think 5 is a nice round figure; 5 people and 5 animals.
+On the 9th September we went out at 9 pm in 9 cranky cars.
+The value is 0, but we really need a value of 100 or 200.
+Jane had 239 bars of chocolate, 56 lollies and 76 sweets.
+Add 569 to the totals of 890 and then you will have 1459.
+The amazing monkey scampered quickly over the floor of the cage. He was very excited as his keeper was just about to feed him.
+The extra homework given to the children did not keep them quiet and they jumped about the desks with ferocious zeal.
+Jenny Pope was a fun loving, likeable girl. She amazed everyone with her quiet, but extremely considerate nature.
+The excellent marks achieved by the student justly proved he was not lazy and that he was, in fact, really quite knowledgeable.
+Send an e-mail to the Manager of the Zoo quoting the prices given in July for the supply of animal feed. The Zoo Keeper is urgently waiting for the information to be sent to him.
+The girl quivered with fear as she watched the blaze. A bomb had exploded just outside the store where she had been shopping only a few moments earlier. She wondered if anyone had been killed.
+Up until extra time had been played, the footballer performed in quite a remarkable way. He zoomed in on every shot and almost scored a goal. He justly deserved the praise given to him.
+`;
+
+const beginnerExercises =
+beginnerData.trim().split("\n");
+
+const intermediateExercises =
+intermediateData.trim().split("\n");
+
+const advanceExercises =
+advanceData.trim().split("\n");
+
+/* =========================
+LESSONS
+========================= */
+
+const typingLessons = {
+
+1:"Typing lesson one paragraph.",
+2:"Typing lesson two paragraph.",
+3:"Typing lesson three paragraph.",
+4:"Typing lesson four paragraph.",
+5:"Typing lesson five paragraph.",
+6:"Typing lesson six paragraph.",
+7:"Typing lesson seven paragraph.",
+8:"Typing lesson eight paragraph.",
+9:"Typing lesson nine paragraph.",
+10:"Typing lesson ten paragraph."
+
+};
+
+/* ========================= */
+
+let deathMode = false;
+let soundOn = true;
+let testTimer;
+let currentLessonText = "";
+let startTime;
+let totalTime = 60;
+
+/* =========================
+SECTION
+========================= */
+
+function showSection(id){
+
+document.querySelectorAll(".section")
+.forEach(sec=>{
+
+sec.classList.remove("active");
+
+});
+
+document.getElementById(id)
+.classList.add("active");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+/* =========================
+POPUP
+========================= */
+
+function openPopup(id){
+
+document.getElementById(id)
+.style.display = "flex";
+
+}
+
+function closePopup(id){
+
+document.getElementById(id)
+.style.display = "none";
+
+}
+
+/* =========================
+PROFILE
+========================= */
+
+function saveProfile(){
+
+let name = prompt("Enter Your Name");
+
+if(name){
+
+document.getElementById(
+"profileName"
+).innerText = name;
+
+}
+
+}
+
+/* =========================
+THEME
+========================= */
+
+function changeTheme(theme){
+
+document.body.className = "";
+
+if(theme){
+
+document.body.classList.add(theme);
+
+}
+
+}
+
+/* =========================
+SOUND
+========================= */
+
+function toggleSound(){
+
+soundOn = !soundOn;
+
+document.getElementById(
+"soundBtn"
+).innerText =
+soundOn
+? "Sound ON"
+: "Sound OFF";
+
+}
+
+/* =========================
+DEATH MODE
+========================= */
+
+function toggleDeathMode(){
+
+deathMode = !deathMode;
+
+document.getElementById(
+"deathBtn"
+).innerText =
+deathMode
+? "Death ON"
+: "Death OFF";
+
+}
+
+/* =========================
+FULLSCREEN
+========================= */
+
+function toggleFullScreen(){
+
+if(!document.fullscreenElement){
+
+document.documentElement.requestFullscreen();
+
+}else{
+
+document.exitFullscreen();
+
+}
+
+}
+
+/* =========================
+OPEN COURSE
+========================= */
+
+function openCourse(array,name){
+
+showSection("coursePage");
+
+document.getElementById(
+"courseTitle"
+).innerText =
+name + " Exercises";
+
+const list =
+document.getElementById(
+"exerciseList"
+);
+
+list.innerHTML = "";
+
+array.forEach((text,index)=>{
+
+if(text.trim()==="") return;
+
+const item =
+document.createElement("div");
+
+item.className =
+"exercise-item";
+
+item.innerHTML = `
+
+<div class="exercise-number">
+Exercise ${index+1}
+</div>
+
+<div class="typing-box"
+id="box-${index}">
+</div>
+
+<textarea
+class="exercise-input"
+id="input-${index}"
+placeholder="Start typing...">
+</textarea>
+
+`;
+
+list.appendChild(item);
+
+const box =
+document.getElementById(
+`box-${index}`
+);
+
+text.split("").forEach(char=>{
+
+const span =
+document.createElement("span");
+
+span.innerText = char;
+
+box.appendChild(span);
+
+});
+
+const input =
+document.getElementById(
+`input-${index}`
+);
+
+input.addEventListener("focus",()=>{
+
+document.body.classList.add(
+"hide-header"
+);
+
+});
+
+input.addEventListener("blur",()=>{
+
+document.body.classList.remove(
+"hide-header"
+);
+
+});
+
+input.addEventListener("input",()=>{
+
+checkTyping(index,text);
+
+});
+
+input.addEventListener("keydown",(e)=>{
+
+if(e.key==="Enter"){
+
+e.preventDefault();
+
+const next =
+document.getElementById(
+`input-${index+1}`
+);
+
+if(next){
+
+next.focus();
+
+}
+
+}
+
+});
+
+});
+
+}
+
+/* =========================
+CHECK TYPING
+========================= */
+
+function checkTyping(index,text){
+
+const input =
+document.getElementById(
+`input-${index}`
+).value;
+
+const spans =
+document.querySelectorAll(
+`#box-${index} span`
+);
+
+spans.forEach((span,i)=>{
+
+const char = input[i];
+
+span.classList.remove(
+"correct",
+"incorrect",
+"active-char"
+);
+
+if(char == null){
+
+}else if(char === text[i]){
+
+span.classList.add("correct");
+
+}else{
+
+span.classList.add("incorrect");
+
+if(deathMode){
+
+document.getElementById(
+`input-${index}`
+).value = "";
+
+checkTyping(index,text);
+
+}
+
+}
+
+if(i === input.length){
+
+span.classList.add("active-char");
+
+}
+
+});
+
+}
+
+/* =========================
+OPEN TEST
+========================= */
+
+function openTest(num){
+
+showSection("testPage");
+
+currentLessonText =
+typingLessons[num];
+
+document.getElementById(
+"testText"
+).innerText =
+currentLessonText;
+
+document.getElementById(
+"testInput"
+).value = "";
+
+totalTime =
+Number(
+prompt(
+"Set Time Limit In Seconds",
+"60"
+)
+) || 60;
+
+document.getElementById(
+"timer"
+).innerText =
+"Time: " + totalTime + "s";
+
+startTime =
+new Date().getTime();
+
+clearInterval(testTimer);
+
+testTimer = setInterval(()=>{
+
+totalTime--;
+
+document.getElementById(
+"timer"
+).innerText =
+"Time: " + totalTime + "s";
+
+if(totalTime <= 0){
+
+finishTypingTest();
+
+}
+
+},1000);
+
+}
+
+/* =========================
+TEST INPUT
+========================= */
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+const input =
+document.getElementById(
+"testInput"
+);
+
+input.addEventListener(
+"input",
+()=>{
+
+const typed =
+input.value;
+
+if(
+typed.length >=
+currentLessonText.length
+){
+
+finishTypingTest();
+
+}
+
+});
+
+});
+
+/* =========================
+FINISH TEST
+========================= */
+
+function finishTypingTest(){
+
+clearInterval(testTimer);
+
+const typed =
+document.getElementById(
+"testInput"
+).value;
+
+let correct = 0;
+let wrong = 0;
+
+for(let i=0;i<typed.length;i++){
+
+if(
+typed[i] ===
+currentLessonText[i]
+){
+
+correct++;
+
+}else{
+
+wrong++;
+
+}
+
+}
+
+const accuracy =
+Math.round(
+(correct / typed.length)*100
+) || 0;
+
+const words =
+typed.trim().split(" ").length;
+
+const timeTaken =
+Math.abs(
+(new Date().getTime()-startTime)
+/1000
+);
+
+const wpm =
+Math.round(
+(words/timeTaken)*60
+);
+
+document.getElementById(
+"resultTime"
+).innerText =
+"Time: " +
+timeTaken.toFixed(1) +
+" sec";
+
+document.getElementById(
+"resultWpm"
+).innerText =
+"WPM: " + wpm;
+
+document.getElementById(
+"resultAccuracy"
+).innerText =
+"Accuracy: " +
+accuracy + "%";
+
+document.getElementById(
+"resultCorrect"
+).innerText =
+"Correct: " +
+correct;
+
+document.getElementById(
+"resultWrong"
+).innerText =
+"Wrong: " +
+wrong;
+
+document.getElementById(
+"resultPopup"
+).style.display = "flex";
+
+}
+
+/* =========================
+CLOSE RESULT
+========================= */
+
+function closeResult(){
+
+document.getElementById(
+"resultPopup"
+).style.display = "none";
+
+showSection(
+"typingTestPage"
+);
+
+}
+
+</script>
+
+</body>
+</html>
